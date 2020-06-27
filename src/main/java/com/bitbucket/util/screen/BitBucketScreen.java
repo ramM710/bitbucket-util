@@ -1,4 +1,4 @@
-package com.mycompany.bitbucket.util;
+package com.bitbucket.util.screen;
 
 /**
  *
