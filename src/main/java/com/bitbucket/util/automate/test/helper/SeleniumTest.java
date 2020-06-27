@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bitbucket.util.test.helper;
+package com.bitbucket.util.automate.test.helper;
 
-import com.bitbucket.webdriver.Driver;
+import com.bitbucket.util.automate.webdriver.Driver;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.openqa.selenium.WebDriverException;

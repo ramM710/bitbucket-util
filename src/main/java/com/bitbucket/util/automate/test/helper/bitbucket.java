@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bitbucket.util.test.helper;
+package com.bitbucket.util.automate.test.helper;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import com.bitbucket.webdriver.Driver;
+import com.bitbucket.util.automate.webdriver.Driver;
 
 /**
  *
