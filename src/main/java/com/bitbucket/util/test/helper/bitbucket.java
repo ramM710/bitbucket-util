@@ -16,42 +16,73 @@ import com.bitbucket.webdriver.Driver;
  * @author Ritika.Ghosh
  */
 public class bitbucket {
+
     static {
-        PageFactory.initElements(Driver.getWebDriver(), bitbucket.class);
-	}
-    
+        PageFactory.initElements(Driver.getDriver(), bitbucket.class);
+    }
+
     @FindBy(how = How.ID, using = "quickSearchGlobalItem")
-    private static WebElement searchBox;
-    
+    private WebElement searchBox;
+
     @FindBy(how = How.XPATH, using = "//*[@class='sc-bsbRJL fcmKRZ']")
-    private static WebElement searchRepository;
-   
-    
+    private WebElement searchRepository;
+
     @FindBy(how = How.ID, using = "pullrequest-form")
-    private static WebElement pullRequestForm;
-    
+    private WebElement pullRequestForm;
+
     @FindBy(how = How.XPATH, using = "//a[contains(@class,'Item-z6qfkt-1 ituNSk')]")
-    private static WebElement repositorySearch;
-    
+    private WebElement repositorySearch;
+
     @FindBy(how = How.XPATH, using = "//*[contains(@name,'source')]")
-    private static WebElement sourceRepository;
-    
+    private WebElement sourceRepository;
+
     @FindBy(how = How.XPATH, using = "//*[contains(@id,'s2id_autogen5')]")
-    private static WebElement destinationRepository;
-    
+    private WebElement destinationRepository;
+
     @FindBy(how = How.XPATH, using = "//*[contains(@id,'id_close_anchor_branch')]")
-    private static WebElement closeBranchCheckbox;
-    
+    private WebElement closeBranchCheckbox;
+
     @FindBy(how = How.LINK_TEXT, using = "Create pull request")
-    private static WebElement createPullRequest;
-    
+    private WebElement createPullRequest;
+
+    @FindBy(how = How.LINK_TEXT, using = "Pull requests")
+    private WebElement pullRequest;
+
     @FindBy(how = How.LINK_TEXT, using = "Diff")
-    private static WebElement difference;
-    
+    private WebElement difference;
+
     @FindBy(how = How.LINK_TEXT, using = "Commits")
-    private static WebElement commits;
-    
+    private WebElement commits;
+
     @FindBy(how = How.XPATH, using = "//*[contains(@class,'iterable-item file file-added')]/span")
-    private static WebElement diffStatus;
-    
+    private WebElement diffStatus;
+
+    public void searchRepository(String repository) {
+        SeleniumTest.clearAndSetText(repositorySearch, repository);
+    }
+
+    public void sourceRepository(String source) {
+        SeleniumTest.clearAndSetText(sourceRepository, source);
+    }
+
+    public void destinationRepository(String destination) {
+        SeleniumTest.clearAndSetText(destinationRepository, destination);
+    }
+
+    public void clickSearchBox() {
+        SeleniumTest.click(searchBox);
+    }
+
+    public String getDifferenceSTatus() {
+        return diffStatus.getText().trim();
+    }
+
+    public void clickPullRequest() {
+        SeleniumTest.click(repositorySearch);
+    }
+
+    public void clickCheckbox() {
+        SeleniumTest.click(closeBranchCheckbox);
+    }
+
 }

@@ -14,7 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
  */
 public class Driver {
 
-    public static WebDriver getWebDriver() {
+    public static WebDriver getDriver() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\ritika.ghosh\\Documents\\Software\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         return driver;
