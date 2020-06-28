@@ -2,9 +2,7 @@ package com.bitbucket.util.screen;
 
 import com.bitbucket.util.helper.BitBucketCollaborator;
 import com.bitbucket.util.helper.ProjectSelector;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +11,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 import javafx.scene.control.cell.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -67,7 +63,7 @@ public class BitBucketUI {
         hBox.setSpacing(20);
         hBox.setStyle("-fx-background-color: #336699;");
 
-        Label label = new Label("\t" + "BitBucket Pull-request App");
+        Label label = new Label("\t" + "BitBucket Pull-request");
         label.setAlignment(Pos.BASELINE_CENTER);
         label.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         label.setMinWidth(350);
@@ -122,7 +118,7 @@ public class BitBucketUI {
         HBox brancHBox = drawPullRequestContainer();
         HBox reviewerHBox = drawCodeReviewersContainer();
 
-        Button createPullReqBtn = new Button("Create pull request");
+        Button createPullReqBtn = new Button("Request!!");
 
         createPullReqBtn.setOnAction((var actionEvent) -> {
             bucketCollaborator.assembleSelectedProject();

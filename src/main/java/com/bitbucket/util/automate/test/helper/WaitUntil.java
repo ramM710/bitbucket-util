@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bitbucket.util.automate.test.helper;
 
 import com.bitbucket.util.automate.webdriver.Driver;
-import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -20,7 +14,6 @@ public class WaitUntil {
 
     private static final int DEFAULT_POLLING_TIMEOUT_SECONDS = 2;
 
-    
     public static <V> V waitUntil(String message, int timeOutInSeconds, int retryInSeconds,
             final ExpectedCondition<V> expectedCondition,
             Class<? extends Exception>... ignoreExceptions) {
@@ -35,7 +28,6 @@ public class WaitUntil {
         return fluentWait.until(expectedCondition);
     }
 
-    
     public static <V> V waitUntil(ExpectedCondition<V> expectedCondition, Class<? extends Exception>... ignoreExceptions) {
         return waitUntil("", SeleniumTest.waitForElementTimeout, DEFAULT_POLLING_TIMEOUT_SECONDS, expectedCondition, ignoreExceptions);
     }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bitbucket.util.automate.test.helper;
 
 import org.openqa.selenium.WebElement;
@@ -60,8 +55,6 @@ public class BitbucketDashboard {
     @FindBy(how = How.LINK_TEXT, using = "Log in")
     private WebElement login;
 
-   
-
     public void searchRepository(String repository) {
         SeleniumTest.clearAndSetText(repositorySearch, repository);
     }
@@ -94,5 +87,4 @@ public class BitbucketDashboard {
         SeleniumTest.click(login);
     }
 
-    
 }

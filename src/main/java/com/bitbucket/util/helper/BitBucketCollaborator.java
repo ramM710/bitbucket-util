@@ -12,6 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 
 /**
  *
@@ -34,7 +36,7 @@ public class BitBucketCollaborator {
         HBox directoryHBox = new HBox();
         directoryHBox.setSpacing(5);
 
-        Label directoryLabel = new Label("Enter the directory home path:");
+        Label directoryLabel = new Label("Select the project directory:");
         directoryLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         directoryLabel.setTextFill(Color.web("#FFB22B"));
 
@@ -43,11 +45,16 @@ public class BitBucketCollaborator {
         Button fetchButton = new Button("Fetch!!");
 
         fetchButton.setOnAction((var event) -> {
-            File file = new File(directoryField.getText());
+            tableView.getItems().clear();
 
-            String[] directories = file.list((File current, String name) -> new File(current, name).isDirectory());
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            File selectedDir = directoryChooser.showDialog(new Stage());
 
-            insertDataInTable(tableView, Arrays.asList(directories));
+            if (selectedDir != null) {
+                String[] directories = selectedDir.list((File current, String name) -> new File(current, name).isDirectory());
+
+                insertDataInTable(tableView, Arrays.asList(directories));
+            }
         });
 
         directoryHBox.getChildren().addAll(directoryLabel, directoryField, fetchButton);

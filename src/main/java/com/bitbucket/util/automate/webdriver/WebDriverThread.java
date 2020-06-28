@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bitbucket.util.automate.webdriver;
 
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -12,20 +7,29 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
  * @author Ritika.Ghosh
  */
 public class WebDriverThread {
+
     private static final Integer TIMES_TO_TRY = 5;
 
     private final DriverType defaultDriverType = DriverType.CHROME;
+
     private final String browser = System.getProperty("browser", defaultDriverType.toString()).toUpperCase();
+
     private final String operatingSystem = System.getProperty("os.name").toUpperCase();
+
     private final String systemArchitecture = System.getProperty("os.arch");
+
     private final boolean useRemoteWebDriver = Boolean.getBoolean("remoteDriver");
+
     private final boolean proxyEnabled = Boolean.getBoolean("proxyEnabled");
+
     private final String proxyHostname = System.getProperty("proxyHost");
+
     private final Integer proxyPort = Integer.getInteger("proxyPort");
+
     private final String proxyDetails = String.format("%s:%d", proxyHostname, proxyPort);
-   
 
     private EventFiringWebDriver webdriver;
+
     private DriverType selectedDriverType;
 
     public DriverType getSelectedDriverType() {
@@ -34,26 +38,24 @@ public class WebDriverThread {
 
     public EventFiringWebDriver getDriver() throws Exception {
         if (null == webdriver) {
-            Proxy proxy = null;
-            
             determineEffectiveDriverType();
-            final DesiredCapabilities desiredCapabilities = selectedDriverType.getDesiredCapabilities(proxy);
+            final DesiredCapabilities desiredCapabilities = selectedDriverType.getDesiredCapabilities();
 
             for (int i = 1; i <= TIMES_TO_TRY; i++) {
                 //Make sure we are working with a "new" thread each time
                 Thread thread = new Thread(
                         new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    //Surround this code in order to set timeout
-                                    instantiateWebDriver(desiredCapabilities);
-                                } catch (Exception e) {
-                                    //TODO Catch more specific exceptions
+                    @Override
+                    public void run() {
+                        try {
+                            //Surround this code in order to set timeout
+                            instantiateWebDriver(desiredCapabilities);
+                        } catch (Exception e) {
+                            //TODO Catch more specific exceptions
 //                                    logger.error("Failed to instantiate WebDriver", e);
-                                }
-                            }
                         }
+                    }
+                }
                 );
                 thread.start();
                 try {
