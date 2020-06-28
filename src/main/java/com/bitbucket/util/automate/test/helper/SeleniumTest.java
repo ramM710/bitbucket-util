@@ -52,11 +52,10 @@ public class SeleniumTest {
     }
 
     public static void clearAndSetText(WebElement element, String text) {
-        element.sendKeys(text);
-//        if (text != null) {
-//            element.clear();
-//            element.sendKeys(text);
-//        }
+        if (text != null) {
+            element.clear();
+            element.sendKeys(text);
+        }
     }
 
     public static boolean isElementVisible(WebElement element) {
@@ -79,5 +78,17 @@ public class SeleniumTest {
             }
         }
     }
+    
+    /** Waits for the Page Load to complete before returning. */
+    public static void waitForPageLoadToComplete() {
+         SeleniumTest.waitMs(500);
+    }
+    
+    /**
+     * General wait for page loaded
+     */
+//    public static void waitForPageLoad() {
+//        WaitUntil.waitUntil(() -> JavaScriptHelper.getDocumentReadyState().equals("complete"));
+//    }
 
 }
