@@ -3,22 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bitbucket.util.test.helper;
+package com.bitbucket.util.automate.test.helper;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import com.bitbucket.webdriver.Driver;
+import com.bitbucket.util.automate.webdriver.Driver;
 
 /**
  *
  * @author Ritika.Ghosh
  */
-public class Bitbucket {
+public class bitbucket {
 
     static {
-        PageFactory.initElements(Driver.getDriver(), Bitbucket.class);
+        PageFactory.initElements(Driver.getDriver(), bitbucket.class);
     }
 
     @FindBy(how = How.ID, using = "quickSearchGlobalItem")
@@ -58,19 +58,19 @@ public class Bitbucket {
     private WebElement diffStatus;
 
     public void searchRepository(String repository) {
-        seleniumTest.clearAndSetText(repositorySearch, repository);
+        SeleniumTest.clearAndSetText(repositorySearch, repository);
     }
 
     public void sourceRepository(String source) {
-        seleniumTest.clearAndSetText(sourceRepository, source);
+        SeleniumTest.clearAndSetText(sourceRepository, source);
     }
 
     public void destinationRepository(String destination) {
-        seleniumTest.clearAndSetText(destinationRepository, destination);
+        SeleniumTest.clearAndSetText(destinationRepository, destination);
     }
 
     public void clickSearchBox() {
-        seleniumTest.click(searchBox);
+        SeleniumTest.click(searchBox);
     }
 
     public String getDifferenceSTatus() {
@@ -78,11 +78,11 @@ public class Bitbucket {
     }
 
     public void clickPullRequest() {
-        seleniumTest.click(repositorySearch);
+        SeleniumTest.click(repositorySearch);
     }
 
     public void clickCheckbox() {
-        seleniumTest.click(closeBranchCheckbox);
+        SeleniumTest.click(closeBranchCheckbox);
     }
 
 }
