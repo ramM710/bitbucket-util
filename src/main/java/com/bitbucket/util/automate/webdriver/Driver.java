@@ -14,21 +14,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
  */
 public class Driver {
 
-    public static WebDriver getDriver() {
+    public static void setProperty() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\ritika.ghosh\\Documents\\Software\\chromedriver.exe");
+    }
+
+    public static WebDriver getDriver() {
+        setProperty();
         WebDriver driver = new ChromeDriver();
         return driver;
     }
-    
-    public  void getUrl(){
-    String url ="https://bitbucket.org/"; 
-    }
-    
-    public void getCredential(){
-    String username="ghoshritika15@gmail.com";
-    String password="Starlight@911";
-    }
-    
-    
 
 }

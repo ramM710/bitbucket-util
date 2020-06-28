@@ -15,10 +15,10 @@ import com.bitbucket.util.automate.webdriver.Driver;
  *
  * @author Ritika.Ghosh
  */
-public class bitbucket {
+public class BitbucketDashboard {
 
     static {
-        PageFactory.initElements(Driver.getDriver(), bitbucket.class);
+        PageFactory.initElements(Driver.getDriver(), BitbucketDashboard.class);
     }
 
     @FindBy(how = How.ID, using = "quickSearchGlobalItem")
@@ -57,6 +57,11 @@ public class bitbucket {
     @FindBy(how = How.XPATH, using = "//*[contains(@class,'iterable-item file file-added')]/span")
     private WebElement diffStatus;
 
+    @FindBy(how = How.LINK_TEXT, using = "Log in")
+    private WebElement login;
+
+   
+
     public void searchRepository(String repository) {
         SeleniumTest.clearAndSetText(repositorySearch, repository);
     }
@@ -85,4 +90,9 @@ public class bitbucket {
         SeleniumTest.click(closeBranchCheckbox);
     }
 
+    public void clickLoginBox() {
+        SeleniumTest.click(login);
+    }
+
+    
 }

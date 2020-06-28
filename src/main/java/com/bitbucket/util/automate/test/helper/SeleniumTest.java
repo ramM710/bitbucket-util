@@ -18,29 +18,29 @@ import org.openqa.selenium.support.ui.Select;
  * @author Ritika.Ghosh
  */
 public class SeleniumTest {
-    
-    
+
+    public static int waitForElementTimeout = 15;
+
     public static boolean selectByValueFromDropDown(
             WebElement dropdown, final String valueToSelect, int timeOut, int retry) {
 
         final Select selection = new Select(dropdown);
 
-        
-                    for (WebElement we : selection.getOptions()) {
-                        if (we.getAttribute("value").equals(valueToSelect)) {
-                            selection.selectByValue(we.getAttribute("value"));
-                            return true;
-                        }
-                    }
-               return true;
-               
+        for (WebElement we : selection.getOptions()) {
+            if (we.getAttribute("value").equals(valueToSelect)) {
+                selection.selectByValue(we.getAttribute("value"));
+                return true;
+            }
+        }
+        return true;
+
     }
-    
+
     public static WebElement click(WebElement element) {
         JavaScriptHelper.click(element);
         return element;
     }
-    
+
     public static List<WebElement> getSelectOptions(WebElement dropDown) {
         return new Select(dropDown).getOptions();
     }
@@ -48,7 +48,7 @@ public class SeleniumTest {
     public static List<String> getSelectOptionStrings(WebElement dropDown) {
         return getSelectOptions(dropDown).stream().map(SeleniumTest::getTextByAttributeValue).map(String::trim).collect(Collectors.toList());
     }
-    
+
     public static String getTextByAttributeValue(WebElement element) {
         String text = element.getText();
         if ((null == text) || "".equals(text)) {
@@ -57,14 +57,15 @@ public class SeleniumTest {
 
         return text;
     }
-    
+
     public static void clearAndSetText(WebElement element, String text) {
-        if (text != null) {
-            element.clear();
-            element.sendKeys(text);
-        }
+        element.sendKeys(text);
+//        if (text != null) {
+//            element.clear();
+//            element.sendKeys(text);
+//        }
     }
-    
+
     public static boolean isElementVisible(WebElement element) {
         try {
             element.isDisplayed();
@@ -73,6 +74,17 @@ public class SeleniumTest {
         }
         return false;
     }
-    
-    
+
+    public static void waitMs(long milliseconds) {
+        final long endTime = System.currentTimeMillis() + milliseconds;
+
+        while (System.currentTimeMillis() < endTime) {
+            try {
+                Thread.sleep(Math.max(0L, endTime - System.currentTimeMillis()));
+            } catch (InterruptedException ie) {
+
+            }
+        }
+    }
+
 }
