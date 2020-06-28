@@ -25,7 +25,6 @@ public class Driver {
             WebDriver webDriver = new ChromeDriver();
             return webDriver;
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
