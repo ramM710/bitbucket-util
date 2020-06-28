@@ -78,17 +78,29 @@ public class SeleniumTest {
             }
         }
     }
-    
-    /** Waits for the Page Load to complete before returning. */
-    public static void waitForPageLoadToComplete() {
-         SeleniumTest.waitMs(500);
-    }
-    
+
     /**
-     * General wait for page loaded
+     * Waits for the Page Load to complete before returning.
      */
-//    public static void waitForPageLoad() {
-//        WaitUntil.waitUntil(() -> JavaScriptHelper.getDocumentReadyState().equals("complete"));
-//    }
+    public static void waitForPageLoadToComplete() {
+        SeleniumTest.waitMs(1000);
+    }
+
+    /**
+     * Finds an element by the starting text
+     *
+     * @param dropDown
+     * @param text
+     * @return true if a match is found
+     */
+    public static boolean isElementWithContainingTextInDropDown(WebElement dropDown, String text) {
+        List<WebElement> dropDownOptions = SeleniumTest.getSelectOptions(dropDown);
+        for (WebElement option : dropDownOptions) {
+            if (option.getText().contains(text)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

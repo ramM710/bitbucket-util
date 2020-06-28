@@ -12,7 +12,6 @@ import org.testng.annotations.Ignore;
  *
  * @author Ritika.Ghosh
  */
-@Ignore
 public class BitBucketTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BitBucketUI.class);
@@ -27,10 +26,10 @@ public class BitBucketTest {
 
         LOGGER.info("Enter Url of the bit bucket and vigate to bit bucket account");
         commonFunctions.navigateToAndLoginToUserAccount(td.url, td.username, td.password);
-        
+
         LOGGER.info("Navigate to search tab and search for reporsitory");
         List repoList = commonFunctions.repodetails();
-        
+
         commonFunctions.navigateToSearchandRepository(repoList);
     }
 }

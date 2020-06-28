@@ -3,7 +3,6 @@ package com.bitbucket.util.automate.test.helper;
 import com.bitbucket.util.automate.webdriver.Driver;
 import com.bitbucket.util.screen.BitBucketUI;
 import java.util.ArrayList;
-import java.util.Iterator;
 import com.bitbucket.util.screen.PullRequestInformation;
 import java.util.List;
 import org.slf4j.Logger;
@@ -34,24 +33,28 @@ public class CommonFunctions {
         loginPage.signInAs(username, password);
 
     }
-    
-    public void navigateToSearchandRepository(List<String> repodetails){
-    LOGGER.info("Click on Search tab for every repository");
+
+    public void navigateToSearchandRepository(List<String> repodetails) {
+        LOGGER.info("Click on Search tab for every repository");
         for (String repodetail : repodetails) {
-             bitbucket.repositorySearch(repodetail);
+            LOGGER.info("Search Repository");
+            bitbucket.repositorySearch(repodetail);
+            LOGGER.info("Complete the flow of Pull Request");
+            bitbucket.checkPullRequest("test", "master", repodetail);
+
         }
-      
+
     }
-    
-    public List<String> repodetails(){
-        String RepositoryName="TrialRepo";
-        String source ="dev";
-        String destination ="dev";
+
+    public List<String> repodetails() {
+        String RepositoryName = "TrialRepo";
+        String source = "dev";
+        String destination = "dev";
         List<String> repodetails = new ArrayList<String>();
         repodetails.add(RepositoryName);
         repodetails.add(source);
         repodetails.add(destination);
-        
+
         return repodetails;
     }
 

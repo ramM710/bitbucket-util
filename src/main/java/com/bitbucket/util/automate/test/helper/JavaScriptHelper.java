@@ -27,18 +27,4 @@ public class JavaScriptHelper {
     }
     
     
-//    public static String getDocumentReadyState() {
-//        return (String)JavaScriptHelper.runScript("return document.readyState");
-//    }
-    
-//    public static Object runScript(String scriptToRun, Object... args) {
-//        if (args != null) {
-//            for (int argNumber = 0; argNumber < args.length; argNumber++) {
-//                if (!scriptToRun.contains("arguments[" + argNumber + "]")) {
-//                    throw new IllegalArgumentException("scriptToRun does not contain \"arguments[" + argNumber + "]\"");
-//                }
-//            }
-//        }
-//        return Driver.getDriver().executeScript(scriptToRun, args);
-//    }
 }
