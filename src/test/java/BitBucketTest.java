@@ -23,7 +23,7 @@ public class BitBucketTest {
         LOGGER.info("Create objects of all classes to be used");
         BitbucketDashboard bitbucket = new BitbucketDashboard();
         CommonFunctions commonFunctions = new CommonFunctions();
-        TestData td = new TestData();
+        
 
         LOGGER.info("Enter Url of the bit bucket and vigate to bit bucket account");
 
