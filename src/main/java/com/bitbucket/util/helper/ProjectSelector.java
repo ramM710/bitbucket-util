@@ -21,7 +21,7 @@ public class ProjectSelector {
         return projectName;
     }
 
-    public CheckBox getChoose() {
+    public CheckBox getCheckBox() {
         return choose;
     }
 

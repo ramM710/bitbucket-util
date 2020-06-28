@@ -5,11 +5,13 @@ import com.bitbucket.util.screen.BitBucketUI;
 import com.bitbucket.util.automate.test.helper.CommonFunctions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.Ignore;
 
 /**
  *
  * @author Ritika.Ghosh
  */
+@Ignore
 public class BitBucketTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BitBucketUI.class);
