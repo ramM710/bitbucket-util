@@ -1,10 +1,11 @@
 package com.bitbucket.util.automate.webdriver;
 
+import io.github.bonigarcia.wdm.ChromeDriverManager;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
  *
@@ -18,9 +19,13 @@ public class Driver {
 
     private static ThreadLocal<WebDriverThread> activeThread;
 
-    public static EventFiringWebDriver getDriver() {
+    public static WebDriver getDriver() {
         try {
-            return activeThread.get().getDriver();
+            ChromeDriverManager.setup();
+            WebDriver webDriver = new ChromeDriver();
+            return webDriver;
+
+            //            return activeThread.get().getDriver();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);

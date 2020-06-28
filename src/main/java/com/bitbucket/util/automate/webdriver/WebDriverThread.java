@@ -1,5 +1,7 @@
 package com.bitbucket.util.automate.webdriver;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 /**
