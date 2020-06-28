@@ -30,13 +30,11 @@ public class BitBucketTest {
         String username = "ghoshritika15@gmail.com";
         String password = "Starlight@911";
 
-        commonFunctions.initializeBitBucket(username, password);
-
         LOGGER.info("Navigate to search tab and search for reporsitory");
         List<String> repos = new ArrayList<>();
 
-        PullRequestInformation pullRequestInformation = new PullRequestInformation("username",
-                "password", "toBranch", "fromBranch", "reviewer");
+        PullRequestInformation pullRequestInformation = new PullRequestInformation(username,
+                password, "toBranch", "fromBranch", "reviewer");
 
         commonFunctions.generatePullRequest(repos, pullRequestInformation);
     }
