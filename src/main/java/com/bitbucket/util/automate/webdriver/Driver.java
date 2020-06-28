@@ -1,6 +1,6 @@
 package com.bitbucket.util.automate.webdriver;
 
-import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,11 +21,9 @@ public class Driver {
 
     public static WebDriver getDriver() {
         try {
-            ChromeDriverManager.setup();
+            WebDriverManager.chromedriver().setup();
             WebDriver webDriver = new ChromeDriver();
             return webDriver;
-
-            //            return activeThread.get().getDriver();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
