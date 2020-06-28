@@ -4,6 +4,7 @@ import com.bitbucket.util.automate.webdriver.Driver;
 import com.bitbucket.util.screen.BitBucketUI;
 import java.util.ArrayList;
 import java.util.Iterator;
+import com.bitbucket.util.screen.PullRequestInformation;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +53,15 @@ public class CommonFunctions {
         repodetails.add(destination);
         
         return repodetails;
+    }
+
+    public void generatePullRequest(List<String> projects, PullRequestInformation pullRequestInformation) {
+
+        String fromBranch = pullRequestInformation.getFromBranch();
+        String toBranch = pullRequestInformation.getToBranch();
+        String usrPwd = pullRequestInformation.getPassword();
+        String usrName = pullRequestInformation.getUserName();
+
     }
 
 }

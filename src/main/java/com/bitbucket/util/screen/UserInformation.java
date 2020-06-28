@@ -22,18 +22,6 @@ import javafx.stage.Stage;
  */
 public class UserInformation extends Application {
 
-    private TextField userNameField;
-
-    private PasswordField userPwdField;
-
-    public TextField getUserNameField() {
-        return userNameField;
-    }
-
-    public PasswordField getUserPwdField() {
-        return userPwdField;
-    }
-
     public void build(String[] args) {
         launch(args);
     }
@@ -53,7 +41,7 @@ public class UserInformation extends Application {
         userNameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         userNameLabel.setTextFill(Color.web("#FFB22B"));
 
-        userNameField = new TextField();
+        TextField userNameField = new TextField();
 
         userNameHBox.getChildren().addAll(userNameLabel, userNameField);
 
@@ -65,7 +53,7 @@ public class UserInformation extends Application {
         userPwdLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         userPwdLabel.setTextFill(Color.web("#FFB22B"));
 
-        userPwdField = new PasswordField();
+        PasswordField userPwdField = new PasswordField();
 
         userPwdHBox.getChildren().addAll(userPwdLabel, userPwdField);
 
@@ -74,7 +62,7 @@ public class UserInformation extends Application {
 
             BitBucketUI bitBucketUI = new BitBucketUI();
             bitBucketUI.setBitBucketUserInfo(this);
-            bitBucketUI.build(new Stage());
+            bitBucketUI.build(new Stage(), userNameField.getText(), userPwdField.getText());
 
             userStage.hide();
         });

@@ -4,6 +4,7 @@ import com.bitbucket.util.helper.BitBucketCollaborator;
 import com.bitbucket.util.helper.ProjectSelector;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.value.ObservableValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javafx.geometry.Insets;
@@ -29,9 +30,17 @@ public class BitBucketUI {
 
     private BitBucketCollaborator bucketCollaborator;
 
-    private List<String> projects;
-
     private TableView tableView;
+
+    private String userName;
+
+    private String userPwd;
+
+    private TextField fromBranchField;
+
+    private TextField toBranchField;
+
+    private TextField reviewerField;
 
     public void setBitBucketUserInfo(UserInformation bitBucketUserInfo) {
         this.bitBucketUserInfo = bitBucketUserInfo;
@@ -41,11 +50,13 @@ public class BitBucketUI {
         return bitBucketUserInfo;
     }
 
-    public void build(Stage stage) {
+    public void build(Stage stage, String usrName, String usrPwd) {
         stage.setTitle("BitBucket Pull-request App");
 
-        projects = new ArrayList<>();
         bucketCollaborator = new BitBucketCollaborator();
+
+        userName = usrName;
+        userPwd = usrPwd;
 
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(addHeader());
@@ -91,8 +102,8 @@ public class BitBucketUI {
         projectColumn.setCellValueFactory(new PropertyValueFactory<>("projectName"));
         projectColumn.setPrefWidth(500);
 
-        TableColumn<CheckBox, ProjectSelector> checkBoxColumn = new TableColumn<>(new CheckBox() + "");
-        checkBoxColumn.setCellValueFactory(new PropertyValueFactory<>("choose"));
+        TableColumn checkBoxColumn = new TableColumn<>();
+        checkBoxColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
 
         tableView.getColumns().addAll(projectColumn, checkBoxColumn);
 
@@ -121,7 +132,9 @@ public class BitBucketUI {
         Button createPullReqBtn = new Button("Request!!");
 
         createPullReqBtn.setOnAction((var actionEvent) -> {
-            bucketCollaborator.assembleSelectedProject();
+            bucketCollaborator.assembleSelectedProject(tableView,
+                    new PullRequestInformation(userName, userPwd, toBranchField.getText(),
+                            fromBranchField.getText(), reviewerField.getText()));
         });
 
         vBox.getChildren().addAll(title, brancHBox, reviewerHBox, createPullReqBtn);
@@ -139,7 +152,7 @@ public class BitBucketUI {
         fromBranchHBox.setSpacing(10);
 
         Label fromBranchLabel = new Label("From: ");
-        TextField fromBranchField = new TextField();
+        fromBranchField = new TextField();
 
         fromBranchHBox.getChildren().addAll(fromBranchLabel, fromBranchField);
 
@@ -148,7 +161,7 @@ public class BitBucketUI {
         toBranchHBox.setSpacing(10);
 
         Label toBranchLabel = new Label("To: ");
-        TextField toBranchField = new TextField();
+        toBranchField = new TextField();
 
         toBranchHBox.getChildren().addAll(toBranchLabel, toBranchField);
 
@@ -163,9 +176,9 @@ public class BitBucketUI {
         reviewerHBox.setAlignment(Pos.CENTER);
 
         Label reviewLabel = new Label("Reviewers: ");
-        TextField reviewField = new TextField();
+        reviewerField = new TextField();
 
-        reviewerHBox.getChildren().addAll(reviewLabel, reviewField);
+        reviewerHBox.getChildren().addAll(reviewLabel, reviewerField);
 
         return reviewerHBox;
     }
