@@ -3,10 +3,11 @@ import org.testng.annotations.Test;
 import com.bitbucket.util.automate.test.helper.BitbucketDashboard;
 import com.bitbucket.util.screen.BitBucketUI;
 import com.bitbucket.util.automate.test.helper.CommonFunctions;
+import com.bitbucket.util.screen.PullRequestInformation;
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.Ignore;
 
 /**
  *
@@ -25,11 +26,18 @@ public class BitBucketTest {
         TestData td = new TestData();
 
         LOGGER.info("Enter Url of the bit bucket and vigate to bit bucket account");
-        commonFunctions.navigateToAndLoginToUserAccount(td.url, td.username, td.password);
+
+        String username = "ghoshritika15@gmail.com";
+        String password = "Starlight@911";
+
+        commonFunctions.initializeBitBucket(username, password);
 
         LOGGER.info("Navigate to search tab and search for reporsitory");
-        List repoList = commonFunctions.repodetails();
+        List<String> repos = new ArrayList<>();
 
-        commonFunctions.navigateToSearchandRepository(repoList);
+        PullRequestInformation pullRequestInformation = new PullRequestInformation("username",
+                "password", "toBranch", "fromBranch", "reviewer");
+
+        commonFunctions.generatePullRequest(repos, pullRequestInformation);
     }
 }

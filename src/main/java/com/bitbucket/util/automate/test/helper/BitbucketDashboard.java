@@ -159,7 +159,7 @@ public class BitbucketDashboard {
         SeleniumTest.waitForPageLoadToComplete();
     }
 
-    public void checkPullRequest(String source, String destination, String Repository) {
+    public void checkPullRequest(String source, String destination, String repoName) {
         List<String> conflictProjects = new ArrayList<String>();
         if (pullRequest.isDisplayed()) {
             clickPullRequest();
@@ -179,7 +179,7 @@ public class BitbucketDashboard {
         SeleniumTest.click(difference);
         String diffStatus = getDifferenceSTatus();
         if (diffStatus.contains("C")) {
-            conflictProjects.add(Repository);
+            conflictProjects.add(repoName);
             Driver.quitBrowser();
         }
         SeleniumTest.waitForPageLoadToComplete();
