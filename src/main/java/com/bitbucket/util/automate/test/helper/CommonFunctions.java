@@ -19,7 +19,11 @@ public class CommonFunctions {
 
     public void navigateToAndLoginToUserAccount(String url, String username, String password) {
         LOGGER.info("Navigate to user account");
-        Driver.getDriver().get(url);
+
+        if (Driver.webDriver == null) {
+            Driver.getDriver();
+        }
+        Driver.webDriver.get(url);
 
         LOGGER.info("Enter username and password");
         loginPage.signInAs(username, password);

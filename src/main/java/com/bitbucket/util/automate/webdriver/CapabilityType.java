@@ -1,4 +1,3 @@
-
 package com.bitbucket.util.automate.webdriver;
 
 /**
@@ -8,7 +7,9 @@ package com.bitbucket.util.automate.webdriver;
 public interface CapabilityType {
 
     String BROWSER_NAME = "browserName";
+
     String PLATFORM = "platform";
+
     String VERSION = "version";
 
 }

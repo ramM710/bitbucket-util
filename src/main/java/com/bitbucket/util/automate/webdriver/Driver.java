@@ -19,10 +19,14 @@ public class Driver {
 
     private static ThreadLocal<WebDriverThread> activeThread;
 
+    public static WebDriver webDriver;
+
     public static WebDriver getDriver() {
         try {
-            WebDriverManager.chromedriver().setup();
-            WebDriver webDriver = new ChromeDriver();
+            if (webDriver == null) {
+                WebDriverManager.chromedriver().setup();
+                webDriver = new ChromeDriver();
+            }
             return webDriver;
         } catch (Exception e) {
             throw new RuntimeException(e);
