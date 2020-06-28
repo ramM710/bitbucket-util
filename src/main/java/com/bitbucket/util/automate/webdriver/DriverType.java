@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,7 +15,7 @@ import org.openqa.selenium.chrome.ChromeDriverService;
  *
  * @author Ritika.Ghosh
  */
-public enum DriverType {
+public enum DriverType implements DriverSetup {
     CHROME {
         public DesiredCapabilities getDesiredCapabilities() {
             ChromeOptions options = new ChromeOptions();
@@ -70,6 +71,10 @@ public enum DriverType {
         @Override
         public String toString() {
             return "Chrome";
+        }
+
+        public DesiredCapabilities getDesiredCapabilities(Proxy proxySettings) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     };
 
