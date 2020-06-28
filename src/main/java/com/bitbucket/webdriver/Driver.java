@@ -19,5 +19,16 @@ public class Driver {
         WebDriver driver = new ChromeDriver();
         return driver;
     }
+    
+    public  void getUrl(){
+    String url ="https://bitbucket.org/"; 
+    }
+    
+    public void getCredential(){
+    String username="ghoshritika15@gmail.com";
+    String password="Starlight@911";
+    }
+    
+    
 
 }

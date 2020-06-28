@@ -15,10 +15,10 @@ import com.bitbucket.webdriver.Driver;
  *
  * @author Ritika.Ghosh
  */
-public class bitbucket {
+public class Bitbucket {
 
     static {
-        PageFactory.initElements(Driver.getDriver(), bitbucket.class);
+        PageFactory.initElements(Driver.getDriver(), Bitbucket.class);
     }
 
     @FindBy(how = How.ID, using = "quickSearchGlobalItem")
@@ -58,19 +58,19 @@ public class bitbucket {
     private WebElement diffStatus;
 
     public void searchRepository(String repository) {
-        SeleniumTest.clearAndSetText(repositorySearch, repository);
+        seleniumTest.clearAndSetText(repositorySearch, repository);
     }
 
     public void sourceRepository(String source) {
-        SeleniumTest.clearAndSetText(sourceRepository, source);
+        seleniumTest.clearAndSetText(sourceRepository, source);
     }
 
     public void destinationRepository(String destination) {
-        SeleniumTest.clearAndSetText(destinationRepository, destination);
+        seleniumTest.clearAndSetText(destinationRepository, destination);
     }
 
     public void clickSearchBox() {
-        SeleniumTest.click(searchBox);
+        seleniumTest.click(searchBox);
     }
 
     public String getDifferenceSTatus() {
@@ -78,11 +78,11 @@ public class bitbucket {
     }
 
     public void clickPullRequest() {
-        SeleniumTest.click(repositorySearch);
+        seleniumTest.click(repositorySearch);
     }
 
     public void clickCheckbox() {
-        SeleniumTest.click(closeBranchCheckbox);
+        seleniumTest.click(closeBranchCheckbox);
     }
 
 }

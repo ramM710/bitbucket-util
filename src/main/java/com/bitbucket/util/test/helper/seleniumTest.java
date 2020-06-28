@@ -5,19 +5,17 @@
  */
 package com.bitbucket.util.test.helper;
 
-import com.bitbucket.webdriver.Driver;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 /**
  *
  * @author Ritika.Ghosh
  */
-public class SeleniumTest {
+public class seleniumTest {
     
     
     public static boolean selectByValueFromDropDown(
@@ -46,7 +44,7 @@ public class SeleniumTest {
     }
 
     public static List<String> getSelectOptionStrings(WebElement dropDown) {
-        return getSelectOptions(dropDown).stream().map(SeleniumTest::getTextByAttributeValue).map(String::trim).collect(Collectors.toList());
+        return getSelectOptions(dropDown).stream().map(seleniumTest::getTextByAttributeValue).map(String::trim).collect(Collectors.toList());
     }
     
     public static String getTextByAttributeValue(WebElement element) {
