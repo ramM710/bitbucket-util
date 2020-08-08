@@ -6,7 +6,10 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import com.bitbucket.util.automate.webdriver.Driver;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +40,7 @@ public class BitbucketDashboard {
     @FindBy(how = How.XPATH, using = "//*[contains(@placeholder,'Search for repositories, code')]")
     private static WebElement repositorySearch;
 
-    @FindBy(how = How.XPATH, using = "//a[contains(@class,'Item-z6qfkt-0 ilBuyM')]/span/span")
+    @FindBy(how = How.XPATH, using = "//a[starts-with(@class,'Item-')]/span/span[1]")
     private static WebElement repositorySearchSelected;
 
     @FindBy(how = How.XPATH, using = "//*[contains(@name,'source')]")
@@ -46,13 +49,19 @@ public class BitbucketDashboard {
     @FindBy(how = How.XPATH, using = "(//*[contains(@class,'select2-input')])[4]")
     private static WebElement sourceOrDestinationInputFeild;
 
-    @FindBy(how = How.XPATH, using = "//*[contains(@id,'s2id_autogen2')]]")
+    @FindBy(how = How.ID, using = "id_source_group")
+    private static WebElement sourceDialougueBox;
+
+    @FindBy(how = How.ID, using = "id_dest_group")
+    private static WebElement destinationDialougueBox;
+
+    @FindBy(how = How.ID, using = "s2id_autogen2")
     private static WebElement sourceDropDown;
 
     @FindBy(how = How.XPATH, using = "//*[contains(@class,'select2-match')]")
     private static WebElement sourceHighlighDropDown;
 
-    @FindBy(how = How.XPATH, using = "(//*[contains(@class,'select2-arrow')])[3]]")
+    @FindBy(how = How.XPATH, using = "(//*[contains(@class,'select2-arrow')])[3]")
     private static WebElement destinationDropDown;
 
     @FindBy(how = How.XPATH, using = "//*[contains(@class,'ak-navigation-resize-button css-889cso')]")
@@ -79,6 +88,11 @@ public class BitbucketDashboard {
     @FindBy(how = How.XPATH, using = "//span[contains(@class,'diff-summary-lozenge')]")
     private static WebElement diffStatus;
 
+    @FindBy(how = How.ID, using = "s2id_autogen1")
+    private static WebElement addReviewer;
+
+//    @FindBy(how = How.ID, using = "select2-drop")
+//    private static WebElement reviewerDropDown;
     public void searchRepository(String repository) {
         SeleniumTest.clearAndSetText(repositorySearch, repository);
     }
@@ -120,16 +134,17 @@ public class BitbucketDashboard {
     public void selectSourceRepositoryFromDropdown(String source) {
         LOGGER.info("Click source drop down");
 
-        Boolean isSrcElementVisible = SeleniumTest.isElementWithContainingTextInDropDown(sourceDropDown, source);
+        Boolean isSrcElementVisible = sourceDialougueBox.isDisplayed();
         if (isSrcElementVisible) {
-            SeleniumTest.click(sourceDropDown);
-            SeleniumTest.waitForPageLoadToComplete();
-
-            SeleniumTest.clearAndSetText(sourceOrDestinationInputFeild, source);
-            SeleniumTest.waitForPageLoadToComplete();
-
-            SeleniumTest.click(sourceHighlighDropDown);
-            SeleniumTest.waitForPageLoadToComplete();
+            Actions action = new Actions(Driver.getDriver());
+            action.moveToElement(sourceDropDown).click().perform();
+            List<WebElement> options = Driver.getDriver().findElements(By.xpath("//div[@class = 'select2-result-label']"));
+            for (WebElement option : options) {
+                if (option.getText().matches(source)) {
+                    option.click();
+                    break;
+                }
+            }
         }
 
     }
@@ -137,16 +152,33 @@ public class BitbucketDashboard {
     public void selectDestinationRepositoryFromDropdown(String destination) {
         LOGGER.info("Click source drop down");
 
-        Boolean isDestElementVisible = SeleniumTest.isElementWithContainingTextInDropDown(sourceDropDown, destination);
+        Boolean isDestElementVisible = destinationDialougueBox.isDisplayed();
         if (isDestElementVisible) {
-            SeleniumTest.click(destinationDropDown);
-            SeleniumTest.waitForPageLoadToComplete();
+            Actions action = new Actions(Driver.getDriver());
+            action.moveToElement(destinationDropDown).click().perform();
+            List<WebElement> options = Driver.getDriver().findElements(By.xpath("//div[@class = 'select2-result-label']"));
+            for (WebElement option : options) {
+                if (option.getText().matches(destination)) {
+                    option.click();
+                    break;
+                }
+            }
+        }
+    }
 
-            SeleniumTest.clearAndSetText(sourceOrDestinationInputFeild, destination);
-            SeleniumTest.waitForPageLoadToComplete();
-
-            SeleniumTest.click(sourceHighlighDropDown);
-            SeleniumTest.waitForPageLoadToComplete();
+    public void selectReviewerFromDropdown(String ReviewerListName) {
+        LOGGER.info("Select the rewier from drop down");
+        String[] ReviewerList = ReviewerListName.split(",");
+        Actions action = new Actions(Driver.getDriver());
+        for (String name : ReviewerList) {
+            SeleniumTest.clearAndSetText(addReviewer, name);
+            List<WebElement> options = Driver.getDriver().findElements(By.xpath("//div[@id = 'select2-drop']"));
+            for (WebElement option : options) {
+                if (option.getText().matches(name)) {
+                    option.click();
+                    break;
+                }
+            }
         }
     }
 
@@ -160,6 +192,7 @@ public class BitbucketDashboard {
         SeleniumTest.waitForPageLoadToComplete();
 
         if (repositorySearchSelected.isDisplayed()) {
+            LOGGER.error("Repository {} is displayed ", repository);
             clickSearchResult();
         } else {
             LOGGER.error("Repository {} not found ", repository);
@@ -167,8 +200,9 @@ public class BitbucketDashboard {
         SeleniumTest.waitForPageLoadToComplete();
     }
 
-    public void checkPullRequest(String source, String destination, String repoName) {
+    public List<String> checkPullRequest(String source, String destination, String repoName, String ReviewerNames) {
         List<String> conflictProjects = new ArrayList<>();
+        SeleniumTest.waitForPageLoadToComplete();
         if (pullRequest.isDisplayed()) {
             clickPullRequest();
         } else {
@@ -181,27 +215,29 @@ public class BitbucketDashboard {
         SeleniumTest.waitForPageLoadToComplete();
 
         LOGGER.info("Click on source");
-//        selectSourceRepositoryFromDropdown(source);
+        selectSourceRepositoryFromDropdown(source);
 
         LOGGER.info("Click on destination");
+        selectDestinationRepositoryFromDropdown(destination);
         SeleniumTest.waitForPageLoadToComplete();
-//        selectDestinationRepositoryFromDropdown(destination);
-        SeleniumTest.waitForPageLoadToComplete();
+
+        LOGGER.info("Add Review");
+        selectReviewerFromDropdown(ReviewerNames);
 
         SeleniumTest.click(difference);
         String diffStatus = getDifferenceSTatus();
 
         if (diffStatus.contains("C")) {
             conflictProjects.add(repoName);
-            Driver.quitBrowser();
+        } else {
+            SeleniumTest.waitForPageLoadToComplete();
+            SeleniumTest.click(closeBranchCheckbox);
+
+            SeleniumTest.waitForPageLoadToComplete();
+            SeleniumTest.click(createPR);
+
+            SeleniumTest.waitMs(10000);
         }
-
-        SeleniumTest.waitForPageLoadToComplete();
-        SeleniumTest.click(closeBranchCheckbox);
-
-        SeleniumTest.waitForPageLoadToComplete();
-        SeleniumTest.click(createPR);
-
-        SeleniumTest.waitForPageLoadToComplete();
+        return conflictProjects;
     }
 }

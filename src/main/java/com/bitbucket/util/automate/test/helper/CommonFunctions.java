@@ -45,11 +45,15 @@ public class CommonFunctions {
         String fromBranch = pullRequestInformation.getFromBranch();
         String toBranch = pullRequestInformation.getToBranch();
 
+        repos.add("trialrepo");
+        repos.add("bitbucket-util_new");
+        String reviewerName = pullRequestInformation.getReviewer();
+
         repos.forEach((var repoName) -> {
             LOGGER.info("Search Repository");
             bitbucket.repositorySearch(repoName);
             LOGGER.info("Complete the flow of Pull Request");
-            bitbucket.checkPullRequest(fromBranch, toBranch, repoName);
+            bitbucket.checkPullRequest(fromBranch, toBranch, repoName, reviewerName);
         });
     }
 }
