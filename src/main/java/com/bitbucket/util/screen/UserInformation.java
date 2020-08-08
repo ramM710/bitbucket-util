@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -67,7 +68,11 @@ public class UserInformation extends Application {
             userStage.hide();
         });
 
-        userDetailVBox.getChildren().addAll(new ImageView("file:atlassian-bitbucket-logo.png"), userNameHBox, userPwdHBox, submitBtn);
+        ImageView imageView = new ImageView(new Image("/atlassian-bitbucket-logo.png"));
+
+        userDetailVBox.getChildren().addAll(imageView, userNameHBox, userPwdHBox, submitBtn);
+
+        userStage.getIcons().setAll(new Image("/atlassian-bitbucket-logo.png"));
 
         Scene scene = new Scene(userDetailVBox, 500, 400);
         userStage.setScene(scene);

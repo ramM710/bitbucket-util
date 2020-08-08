@@ -5,7 +5,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import com.bitbucket.util.automate.webdriver.Driver;
-import com.bitbucket.util.screen.BitBucketUI;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -17,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class BitbucketDashboard {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BitBucketUI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BitbucketDashboard.class);
 
     static {
         PageFactory.initElements(Driver.getDriver(), BitbucketDashboard.class);
@@ -94,12 +93,12 @@ public class BitbucketDashboard {
 
     public void clickSearchBox() {
         SeleniumTest.waitForPageLoadToComplete();
+
         if (searchBox.isDisplayed()) {
             SeleniumTest.click(searchBox);
         } else {
             LOGGER.info("Element not visible");
         }
-
     }
 
     public String getDifferenceSTatus() {
@@ -120,12 +119,15 @@ public class BitbucketDashboard {
 
     public void selectSourceRepositoryFromDropdown(String source) {
         LOGGER.info("Click source drop down");
-        Boolean value = SeleniumTest.isElementWithContainingTextInDropDown(sourceDropDown, source);
-        if (value) {
+
+        Boolean isSrcElementVisible = SeleniumTest.isElementWithContainingTextInDropDown(sourceDropDown, source);
+        if (isSrcElementVisible) {
             SeleniumTest.click(sourceDropDown);
             SeleniumTest.waitForPageLoadToComplete();
+
             SeleniumTest.clearAndSetText(sourceOrDestinationInputFeild, source);
             SeleniumTest.waitForPageLoadToComplete();
+
             SeleniumTest.click(sourceHighlighDropDown);
             SeleniumTest.waitForPageLoadToComplete();
         }
@@ -134,12 +136,15 @@ public class BitbucketDashboard {
 
     public void selectDestinationRepositoryFromDropdown(String destination) {
         LOGGER.info("Click source drop down");
-        Boolean value = SeleniumTest.isElementWithContainingTextInDropDown(sourceDropDown, destination);
-        if (value) {
+
+        Boolean isDestElementVisible = SeleniumTest.isElementWithContainingTextInDropDown(sourceDropDown, destination);
+        if (isDestElementVisible) {
             SeleniumTest.click(destinationDropDown);
             SeleniumTest.waitForPageLoadToComplete();
+
             SeleniumTest.clearAndSetText(sourceOrDestinationInputFeild, destination);
             SeleniumTest.waitForPageLoadToComplete();
+
             SeleniumTest.click(sourceHighlighDropDown);
             SeleniumTest.waitForPageLoadToComplete();
         }
@@ -147,20 +152,23 @@ public class BitbucketDashboard {
 
     public void repositorySearch(String repository) {
         SeleniumTest.waitForPageLoadToComplete();
+
         clickSearchBox();
         SeleniumTest.waitForPageLoadToComplete();
+
         searchRepository(repository);
         SeleniumTest.waitForPageLoadToComplete();
+
         if (repositorySearchSelected.isDisplayed()) {
             clickSearchResult();
         } else {
-            LOGGER.info("Repository " + repository + " not found ");
+            LOGGER.error("Repository {} not found ", repository);
         }
         SeleniumTest.waitForPageLoadToComplete();
     }
 
     public void checkPullRequest(String source, String destination, String repoName) {
-        List<String> conflictProjects = new ArrayList<String>();
+        List<String> conflictProjects = new ArrayList<>();
         if (pullRequest.isDisplayed()) {
             clickPullRequest();
         } else {
@@ -168,24 +176,32 @@ public class BitbucketDashboard {
         }
 
         SeleniumTest.waitForPageLoadToComplete();
+
         SeleniumTest.click(createPullRequest);
         SeleniumTest.waitForPageLoadToComplete();
+
         LOGGER.info("Click on source");
 //        selectSourceRepositoryFromDropdown(source);
+
         LOGGER.info("Click on destination");
         SeleniumTest.waitForPageLoadToComplete();
 //        selectDestinationRepositoryFromDropdown(destination);
         SeleniumTest.waitForPageLoadToComplete();
+
         SeleniumTest.click(difference);
         String diffStatus = getDifferenceSTatus();
+
         if (diffStatus.contains("C")) {
             conflictProjects.add(repoName);
             Driver.quitBrowser();
         }
+
         SeleniumTest.waitForPageLoadToComplete();
         SeleniumTest.click(closeBranchCheckbox);
+
         SeleniumTest.waitForPageLoadToComplete();
         SeleniumTest.click(createPR);
+
         SeleniumTest.waitForPageLoadToComplete();
     }
 }

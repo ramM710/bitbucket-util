@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.Select;
  */
 public class SeleniumTest {
 
-    public static int waitForElementTimeout = 15;
+    public static final int WAIT_FOR_ELEMENT_TIMEOUT = 15;
 
     public static boolean selectByValueFromDropDown(
             WebElement dropdown, final String valueToSelect, int timeOut, int retry) {

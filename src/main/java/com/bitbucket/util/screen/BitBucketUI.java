@@ -2,9 +2,6 @@ package com.bitbucket.util.screen;
 
 import com.bitbucket.util.helper.BitBucketCollaborator;
 import com.bitbucket.util.helper.ProjectSelector;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.beans.value.ObservableValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javafx.geometry.Insets;
@@ -17,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.cell.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -50,8 +48,8 @@ public class BitBucketUI {
         return bitBucketUserInfo;
     }
 
-    public void build(Stage stage, String usrName, String usrPwd) {
-        stage.setTitle("BitBucket Pull-request App");
+    public void build(Stage bitButcketScreenStage, String usrName, String usrPwd) {
+        bitButcketScreenStage.setTitle("BitBucket Pull-request App");
 
         bucketCollaborator = new BitBucketCollaborator();
 
@@ -63,24 +61,30 @@ public class BitBucketUI {
         borderPane.setCenter(addCenterPane());
         borderPane.setBottom(addBottomPane());
 
+        bitButcketScreenStage.getIcons().setAll(new Image("/atlassian-bitbucket-logo.png"));
+
         Scene scene = new Scene(borderPane, 700, 500);
-        stage.setScene(scene);
-        stage.show();
+        bitButcketScreenStage.setScene(scene);
+        bitButcketScreenStage.show();
     }
 
     private HBox addHeader() {
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(15, 20, 10, 10));
         hBox.setSpacing(20);
+        hBox.setAlignment(Pos.CENTER);
         hBox.setStyle("-fx-background-color: #336699;");
 
         Label label = new Label("\t" + "BitBucket Pull-request");
         label.setAlignment(Pos.BASELINE_CENTER);
         label.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        label.setMinWidth(350);
-        label.setPrefSize(500, 10);
+        label.setTextFill(Color.WHITESMOKE);
 
-        hBox.getChildren().addAll(new ImageView(new Image("file:pull-request.png")), label);
+        ImageView imageView = new ImageView("/pull-request.png");
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(50);
+
+        hBox.getChildren().addAll(imageView, label);
         return hBox;
     }
 
@@ -132,9 +136,11 @@ public class BitBucketUI {
         Button createPullReqBtn = new Button("Request!!");
 
         createPullReqBtn.setOnAction((var actionEvent) -> {
-            bucketCollaborator.assembleSelectedProject(tableView,
-                    new PullRequestInformation(userName, userPwd, toBranchField.getText(),
-                            fromBranchField.getText(), reviewerField.getText()));
+            if (!toBranchField.getText().isEmpty() || !fromBranchField.getText().isEmpty() || !reviewerField.getText().isEmpty()) {
+                bucketCollaborator.assembleSelectedProject(tableView,
+                        new PullRequestInformation(userName, userPwd, toBranchField.getText(),
+                                fromBranchField.getText(), reviewerField.getText()));
+            }
         });
 
         vBox.getChildren().addAll(title, brancHBox, reviewerHBox, createPullReqBtn);

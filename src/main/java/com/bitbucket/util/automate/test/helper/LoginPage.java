@@ -30,7 +30,7 @@ public class LoginPage {
 
     @FindBy(how = How.LINK_TEXT, using = "Log in")
     private static WebElement login;
-    
+
     public void typeUserName(String user) {
         SeleniumTest.clearAndSetText(username, user);
     }
@@ -42,25 +42,30 @@ public class LoginPage {
     public void clickContinueButton() {
         SeleniumTest.click(loginButton);
     }
-    
+
     public void clickLoginBox() {
         SeleniumTest.click(login);
     }
 
     public BitbucketDashboard clickLoginButton() {
         SeleniumTest.click(loginButton);
-        SeleniumTest.waitMs((1000 * SeleniumTest.waitForElementTimeout) / 20);
+        SeleniumTest.waitMs((1000 * SeleniumTest.WAIT_FOR_ELEMENT_TIMEOUT) / 20);
         return PageFactory.initElements(Driver.getDriver(), BitbucketDashboard.class);
     }
 
     public BitbucketDashboard signInAs(String email, String password) {
-        SeleniumTest.waitMs((1000 * SeleniumTest.waitForElementTimeout) / 20);
+        SeleniumTest.waitMs((1000 * SeleniumTest.WAIT_FOR_ELEMENT_TIMEOUT) / 20);
         clickLoginBox();
+
         clickLoginButton();
+
         typeUserName(email);
-        SeleniumTest.waitMs((1000 * SeleniumTest.waitForElementTimeout) / 20);
+
+        SeleniumTest.waitMs((1000 * SeleniumTest.WAIT_FOR_ELEMENT_TIMEOUT) / 20);
         clickContinueButton();
+
         typePassword(password);
+
         return clickLoginButton();
     }
 }

@@ -15,10 +15,9 @@ public class WaitUntil {
     private static final int DEFAULT_POLLING_TIMEOUT_SECONDS = 2;
 
     public static <V> V waitUntil(String message, int timeOutInSeconds, int retryInSeconds,
-            final ExpectedCondition<V> expectedCondition,
-            Class<? extends Exception>... ignoreExceptions) {
+            final ExpectedCondition<V> expectedCondition, Class<? extends Exception>... ignoreExceptions) {
 
-        FluentWait<WebDriver> fluentWait = new FluentWait<WebDriver>(Driver.getDriver())
+        FluentWait<WebDriver> fluentWait = new FluentWait<>(Driver.getDriver())
                 .withTimeout(timeOutInSeconds, TimeUnit.SECONDS)
                 .pollingEvery(retryInSeconds, TimeUnit.SECONDS);
 
@@ -29,7 +28,7 @@ public class WaitUntil {
     }
 
     public static <V> V waitUntil(ExpectedCondition<V> expectedCondition, Class<? extends Exception>... ignoreExceptions) {
-        return waitUntil("", SeleniumTest.waitForElementTimeout, DEFAULT_POLLING_TIMEOUT_SECONDS, expectedCondition, ignoreExceptions);
+        return waitUntil("", SeleniumTest.WAIT_FOR_ELEMENT_TIMEOUT, DEFAULT_POLLING_TIMEOUT_SECONDS, expectedCondition, ignoreExceptions);
     }
 
 }
