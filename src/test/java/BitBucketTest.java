@@ -32,7 +32,7 @@ public class BitBucketTest {
         LOGGER.info("Enter Url of the bit bucket and vigate to bit bucket account");
 
         String username = "xyz@gmail.com";
-        String password = "abc@911";
+        String password = "abc@912221";
 
         LOGGER.info("Navigate to search tab and search for reporsitory");
         List<String> repos = new ArrayList<>();
