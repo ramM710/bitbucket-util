@@ -19,12 +19,14 @@ public enum DriverType implements DriverSetup {
     CHROME {
         public DesiredCapabilities getDesiredCapabilities() {
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("disable-infobars");
+            options.addArguments("--headless");
+            options.addArguments("disable-gpu");
+//            options.addArguments("disable-infobars");
             options.addArguments("start-maximized");
             options.addArguments("--ignore-certificate-errors");
             options.addArguments("--disable-popup-blocking");
             options.addArguments("--no-sandbox");
-            options.addArguments("enable-features=NetworkServiceInProcess");
+//            options.addArguments("enable-features=NetworkServiceInProcess");
             //options.addArguments("--disable-print-preview");
 
             Map<String, Object> chromePrefs = new HashMap<>();
@@ -56,7 +58,11 @@ public enum DriverType implements DriverSetup {
             }
 
             try {
-                WebDriver driver = new ChromeDriver((Capabilities) capabilities);
+//                WebDriver driver = new ChromeDriver((Capabilities) capabilities);
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless");
+            options.addArguments("disable-gpu");
+                WebDriver driver = new ChromeDriver(options);
                 return driver;
             } catch (Exception e) {
                 //TODO Catch more specific exceptions
