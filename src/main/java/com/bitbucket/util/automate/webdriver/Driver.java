@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 /**
  *
@@ -24,8 +25,13 @@ public class Driver {
     public static WebDriver getDriver() {
         try {
             if (webDriver == null) {
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.addArguments("--no-sandbox");
+                chromeOptions.addArguments("--headless");
+                chromeOptions.addArguments("disable-gpu");
+                chromeOptions.addArguments("--window-size=1280,800");
                 WebDriverManager.chromedriver().setup();
-                webDriver = new ChromeDriver();
+                webDriver = new ChromeDriver(chromeOptions);
             }
             return webDriver;
         } catch (Exception e) {
